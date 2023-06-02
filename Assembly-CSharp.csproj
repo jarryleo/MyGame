@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{676B999A-3AB8-4D3A-FE38-A4636DBA32D2}</ProjectGuid>
+    <ProjectGuid>{9FFA8360-0BBF-7AA7-0617-18280CA03E00}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,9 +62,10 @@
     <Compile Include="Assets\Scripts\HeroController.cs" />
     <Compile Include="Assets\Scripts\Path\PathBehaver.cs" />
     <Compile Include="Assets\Scripts\Fruits.cs" />
+    <Compile Include="Assets\Scripts\Fire.cs" />
+    <Compile Include="Assets\Scripts\SpikedBall.cs" />
     <Compile Include="Assets\Scripts\Path\PatrolPath.cs" />
     <Compile Include="Assets\Scripts\Trampoline.cs" />
-    <Compile Include="Assets\Scripts\Fire.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

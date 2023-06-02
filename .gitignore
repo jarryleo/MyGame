@@ -1,5 +1,6 @@
 # Miscellaneous
 /Library/
 /Logs/
+/Temp/
 .git/
 .vs/
