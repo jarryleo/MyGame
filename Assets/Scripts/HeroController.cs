@@ -186,6 +186,11 @@ public class HeroController : MonoBehaviour
         SetPlayerState(State.Born);
     }
 
+    public void Flag(Vector3 flagPosition)
+    {
+        bornPosition = flagPosition;
+    }
+
     public void Death()
     {
         rb.isKinematic = true;

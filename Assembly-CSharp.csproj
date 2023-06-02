@@ -66,6 +66,8 @@
     <Compile Include="Assets\Scripts\SpikedBall.cs" />
     <Compile Include="Assets\Scripts\Path\PatrolPath.cs" />
     <Compile Include="Assets\Scripts\Trampoline.cs" />
+    <Compile Include="Assets\Scripts\Flag.cs" />
+    <Compile Include="Assets\Scripts\End.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
