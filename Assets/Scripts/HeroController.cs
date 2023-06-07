@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class HeroController : MonoBehaviour
 {
@@ -17,13 +19,6 @@ public class HeroController : MonoBehaviour
     private State playerCurrentState = State.Born;
     //玩家状态动画
     private Animator animator;
-    //玩家移动速度
-    public float moveSpeed = 5f;
-    //玩家跳跃高度
-    public float jumpForce = 15f;
-    //玩家编号对应的手柄
-    public int playerNumber = 1;
-
     //脚下是否踩到物体
     private bool isGrounded = true;
 
@@ -34,6 +29,20 @@ public class HeroController : MonoBehaviour
     //记录玩家出生位置
     private Vector3 bornPosition;
 
+    //玩家移动速度
+    public float moveSpeed = 5f;
+    //玩家跳跃高度
+    public float jumpForce = 15f;
+    //移动
+    private float moveHorizontal = 0f;
+
+
+    //玩家编号
+    public int playerNumber = 1;
+    //用户输入控制
+    private PlayerInput playerInput;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -41,20 +50,32 @@ public class HeroController : MonoBehaviour
         layerMask = LayerMask.GetMask("Bg");
         bornPosition = transform.position;
         rb.isKinematic = true;
+        //注册交互事件
+        playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += OnJump;
+        playerInput.onActionTriggered += OnMove;
+        //分配手柄
+        InputManager.BindPlayerInput(playerNumber, playerInput);
     }
 
-    private void Update()
+    void Update()
     {
-        if (playerCurrentState == State.Born || playerCurrentState == State.Death) return;
+        if (BanInput()) return;
         Check();
-        Jump();
         Fall();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        if (playerCurrentState == State.Born || playerCurrentState == State.Death) return;
+        if (BanInput()) return;
         Run();
+    }
+
+    //是否可以控制
+    private bool BanInput()
+    {
+        bool bornOrDeath = playerCurrentState == State.Born || playerCurrentState == State.Death;
+        return bornOrDeath;
     }
 
     //检查玩家脚底状态
@@ -64,24 +85,8 @@ public class HeroController : MonoBehaviour
         isGrounded = RayCastCheck(Vector2.down);
     }
 
-    //检测玩家某个方向上是否有可以踩踏物体
-    private bool RayCastCheck(Vector2 vector2)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, vector2, 0.6f, layerMask);
-        if (hit.collider != null)
-        {
-            if (hit.collider.CompareTag("Ground"))
-            {
-                return true;
-            }
-
-        }
-        return false;
-    }
-
     private void Run()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
         //在地面上且没有移动为待机状态
         if (moveHorizontal == 0 && isGrounded)
         {
@@ -103,13 +108,40 @@ public class HeroController : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
         //人物移动
-        transform.position += new Vector3(moveHorizontal, 0, 0) * moveSpeed * Time.fixedDeltaTime;
+        transform.position += new Vector3(moveHorizontal, 0, 0) * moveSpeed * Time.deltaTime;
     }
 
-    private void Jump()
+    //检测玩家某个方向上是否有可以踩踏物体
+    private bool RayCastCheck(Vector2 vector2)
     {
-        //按下跳跃键检测
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, vector2, 0.6f, layerMask);
+        if (hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Ground"))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (BanInput()) return;
+        if (context.action.name != "Move") return;
+        if(InputManager.BanInput(playerNumber, context.control.device)) return;
+
+        Vector2 move = context.action.ReadValue<Vector2>();
+        moveHorizontal = (move.x);
+    }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (BanInput()) return;
+        if (context.action.name != "Jump") return;
+        if (InputManager.BanInput(playerNumber, context.control.device)) return;
+
+        if (isGrounded)
         {
             DoJump();
         }
@@ -119,7 +151,7 @@ public class HeroController : MonoBehaviour
     public void DoJump(float force = 0)
     {
         float jf = force;
-        if (force == 0 )
+        if (force == 0)
         {
             jf = jumpForce;
         }
@@ -182,6 +214,7 @@ public class HeroController : MonoBehaviour
 
     public void Born()
     {
+        moveHorizontal = 0f;
         transform.position = bornPosition;
         SetPlayerState(State.Born);
     }
@@ -193,9 +226,10 @@ public class HeroController : MonoBehaviour
 
     public void Death()
     {
+        moveHorizontal = 0f;
         rb.isKinematic = true;
         //角色停止运动
-        rb.velocity = Vector3.zero; 
+        rb.velocity = Vector3.zero;
         //执行死亡动画
         SetPlayerState(State.Death);
     }
