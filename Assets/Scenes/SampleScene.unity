@@ -11904,6 +11904,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2999860211236551743, guid: 4c106fefeff2e064f8f7df32ad1ddf75, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: keyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: -2999860211236551743, guid: 4c106fefeff2e064f8f7df32ad1ddf75, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1171582258287348605, guid: 4c106fefeff2e064f8f7df32ad1ddf75, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -12890,6 +12898,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 178187125, guid: 02e7a27277dc78545bb8bfd713c1c28e, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: switch
+      objectReference: {fileID: 0}
     - target: {fileID: 5348099055461083577, guid: 02e7a27277dc78545bb8bfd713c1c28e, type: 3}
       propertyPath: m_Name
       value: HeroPink
@@ -12951,6 +12963,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 147204558, guid: 49df808699fb6f245a88d06c6446e6b0, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: xbox
+      objectReference: {fileID: 0}
     - target: {fileID: 8811699515328481304, guid: 49df808699fb6f245a88d06c6446e6b0, type: 3}
       propertyPath: m_Name
       value: HeroBlue

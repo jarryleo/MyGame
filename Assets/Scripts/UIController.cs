@@ -34,8 +34,8 @@ public class UIController : MonoBehaviour
             }
             else
             {
-                SceneManager.UnloadSceneAsync("Setting");
                 Time.timeScale = 1f;
+                SceneManager.UnloadSceneAsync("Setting");
             }
         }
     }

@@ -14,25 +14,22 @@ public class InputManager
     public static void BindDevice(int key, InputDevice device)
     {
         inputDict[key] = device;
-        PlayerInput playerInput = playerDict[key];
-        if (playerInput == null) return;
-        BindPlayerInput(key, playerInput);
     }
 
     public static void BindPlayerInput(int playerIndex, PlayerInput playerInput)
     {
         playerDict[playerIndex] = playerInput;
+        if (!inputDict.ContainsKey(playerIndex)) return;
         InputDevice device = inputDict[playerIndex];
-        if (device == null) return;
-        //InputUser.PerformPairingWithDevice(device, playerInput.user, InputUserPairingOptions.UnpairCurrentDevicesFromUser);
+        playerInput.SwitchCurrentControlScheme(device);
+    }
+
+    public static void Apply()
+    {
+        BindPlayerInput(1, playerDict[1]);
+        BindPlayerInput(2, playerDict[2]);
     }
 
     public static InputDevice GetInputDevice(int key) => inputDict[key];
-
-    public static bool BanInput(int playerIndex, InputDevice device)
-    {
-        if (device is Keyboard) return false;
-        return GetInputDevice(playerIndex) != device;
-    }
 
 }

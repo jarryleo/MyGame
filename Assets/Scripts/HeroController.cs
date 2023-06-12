@@ -130,8 +130,7 @@ public class HeroController : MonoBehaviour
     {
         if (BanInput()) return;
         if (context.action.name != "Move") return;
-        if(InputManager.BanInput(playerNumber, context.control.device)) return;
-
+       
         Vector2 move = context.action.ReadValue<Vector2>();
         moveHorizontal = (move.x);
     }
@@ -139,7 +138,6 @@ public class HeroController : MonoBehaviour
     {
         if (BanInput()) return;
         if (context.action.name != "Jump") return;
-        if (InputManager.BanInput(playerNumber, context.control.device)) return;
 
         if (isGrounded)
         {

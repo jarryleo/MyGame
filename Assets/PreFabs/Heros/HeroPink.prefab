@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5348099055461083582}
   - component: {fileID: 5348099055461083583}
   - component: {fileID: 5348099055461083576}
-  - component: {fileID: 511555992376711299}
   - component: {fileID: 3490625907658622998}
   - component: {fileID: 3490625907658623007}
   - component: {fileID: 178187125}
+  - component: {fileID: 511555992376711299}
   m_Layer: 6
   m_Name: HeroPink
   m_TagString: Hero
@@ -110,21 +110,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &511555992376711299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5348099055461083577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8084adf79c65d941ae10cac8d0b9404, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 15
-  playerNumber: 2
 --- !u!50 &3490625907658622998
 Rigidbody2D:
   serializedVersion: 4
@@ -188,7 +173,22 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: player2
   m_DefaultActionMap: Player2
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &511555992376711299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5348099055461083577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8084adf79c65d941ae10cac8d0b9404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 15
+  playerNumber: 2

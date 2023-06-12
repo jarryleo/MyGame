@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\InputManager\InputManager.cs" />
     <Compile Include="Assets\Scripts\Constants.cs" />
+    <Compile Include="Assets\Scripts\Setting.cs" />
     <Compile Include="Assets\Scripts\Traps\Flag.cs" />
     <Compile Include="Assets\Scripts\Toast.cs" />
     <Compile Include="Assets\Scripts\Path\PatrolPath.Mover.cs" />
@@ -71,7 +72,6 @@
     <Compile Include="Assets\Scripts\Traps\SpikedBall.cs" />
     <Compile Include="Assets\Scripts\Path\PatrolPath.cs" />
     <Compile Include="Assets\Scripts\Traps\Trampoline.cs" />
-    <Compile Include="Assets\Scripts\Setting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

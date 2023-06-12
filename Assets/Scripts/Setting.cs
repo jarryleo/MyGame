@@ -17,6 +17,7 @@ public class Setting : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnBind;
         playerIndex = 1;
+
     }
 
     public void OnBind(InputAction.CallbackContext context)
@@ -43,4 +44,10 @@ public class Setting : MonoBehaviour
             playerIndex++;
         } 
     }
+
+    private void OnDestroy()
+    {
+        InputManager.Apply();
+    }
+
 }

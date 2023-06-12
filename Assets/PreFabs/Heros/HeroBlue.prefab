@@ -205,7 +205,7 @@ MonoBehaviour:
     m_ActionId: 0c8da34e-847d-4d2c-b11e-0c323f7b8c2b
     m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/numpad0,/XInputControllerWindows/buttonNorth,/SwitchProControllerHID/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: player1
   m_DefaultActionMap: Player1
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
