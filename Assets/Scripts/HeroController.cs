@@ -21,6 +21,8 @@ public class HeroController : MonoBehaviour
     private Animator animator;
     //脚下是否踩到物体
     private bool isGrounded = true;
+    //是否站在另一个玩家上面
+    private bool isOnHero = true;
 
     //玩家刚体
     private Rigidbody2D rb;
@@ -39,6 +41,8 @@ public class HeroController : MonoBehaviour
 
     //玩家编号
     public int playerNumber = 1;
+    [Tooltip("玩家可跳跃物体tag")]
+    public List<string> canJumpTags = new();
     //用户输入控制
     private PlayerInput playerInput;
 
@@ -56,6 +60,9 @@ public class HeroController : MonoBehaviour
         playerInput.onActionTriggered += OnMove;
         //分配手柄
         InputManager.BindPlayerInput(playerNumber, playerInput);
+
+        canJumpTags.Add("Ground");
+        canJumpTags.Add("Hero");
     }
 
     void Update()
@@ -82,7 +89,7 @@ public class HeroController : MonoBehaviour
     private void Check()
     {
         //检测玩家脚下是否有可踩踏物品
-        isGrounded = RayCastCheck(Vector2.down);
+        isGrounded = RayCastCheck(Vector2.down) || isOnHero;
     }
 
     private void Run()
@@ -117,7 +124,7 @@ public class HeroController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, vector2, 0.6f, layerMask);
         if (hit.collider != null)
         {
-            if (hit.collider.CompareTag("Ground"))
+            if (canJumpTags.Contains(hit.collider.tag))
             {
                 return true;
             }
@@ -126,11 +133,28 @@ public class HeroController : MonoBehaviour
         return false;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        bool isHero = collision.collider.CompareTag("Hero");
+        if (isHero && transform.position.y > collision.transform.up.y)
+        {
+            isOnHero = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        bool isHero = collision.collider.CompareTag("Hero");
+        if (isHero)
+        {
+            isOnHero = false;
+        }
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         if (BanInput()) return;
         if (context.action.name != "Move") return;
-       
+
         Vector2 move = context.action.ReadValue<Vector2>();
         moveHorizontal = (move.x);
     }
